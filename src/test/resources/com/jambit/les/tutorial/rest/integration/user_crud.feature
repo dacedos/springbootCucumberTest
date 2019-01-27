@@ -19,5 +19,8 @@ Feature: CRUD on users
     When I update the address of a non-existent user
     Then I get a 'NOT_FOUND' response
 
-
+  Scenario: Update non existing user
+    Given there exists a user
+    When I update the address of a non-existent user
+    Then I get a 'UNKNOWN' response
 
