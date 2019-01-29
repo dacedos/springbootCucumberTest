@@ -10,6 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                mvn clean install
             }
         }
         stage('Test') {
@@ -24,3 +25,31 @@ pipeline {
         }
     }
 }
+
+
+ //
+ //  stage('Install'){   
+  //     steps{
+//           sh '''
+  //         	 mvn clean install
+    //       '''
+      // }
+   //}
+//   stage('Build Docker'){   
+  //     steps{
+    //       sh '''
+      //     	 docker build -t springbootcucumberimage:latest .
+        //   '''
+//       }
+  // }   
+   //stage('Push Docker Image'){   
+     //  steps{
+       //    sh '''
+         //    docker tag springbootcucumberimage:latest dacedos/springbootcucumberimage:latest
+           //  docker push dacedos/springbootcucumberimage:latest
+             //docker rmi springbootcucumberimage:latest
+//           '''
+  //     }
+ //  }   
+//  }
+//}
