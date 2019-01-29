@@ -7,7 +7,7 @@ pipeline {
                 	git poll: true, credentialsId: "b4277bb5-629c-4f2d-af7b-44325227f0e0" , url: "git@github.com:dacedos/springbootCucumberTest.git" 
        		}
    		}
-        stage('Build') {
+        stage('Test and Build') {
             steps {
                 echo 'Building..'
                 sh '''
@@ -15,43 +15,23 @@ pipeline {
                 ''' 	
             }
         }
-        stage('Test') {
+        stage('Build Docker') {
             steps {
-                echo 'Testing..'
+                echo 'Building Docker..'
+    	        sh '''
+         	  	 docker build -t springbootcucumberimage:latest .
+         		'''                
             }
         }
-        stage('Deploy') {
+        stage('Push Docker Image') {
             steps {
-                echo 'Deploying....'
+                echo 'Pushing Docker Image....'
+ 				sh '''
+         		    docker tag springbootcucumberimage:latest dacedos/springbootcucumberimage:latest
+           			docker push dacedos/springbootcucumberimage:latest
+             		docker rmi springbootcucumberimage:latest
+	           	'''                
             }
         }
     }
 }
-
-
- //
- //  stage('Install'){   
-  //     steps{
-//           sh '''
-  //         	 mvn clean install
-    //       '''
-      // }
-   //}
-//   stage('Build Docker'){   
-  //     steps{
-    //       sh '''
-      //     	 docker build -t springbootcucumberimage:latest .
-        //   '''
-//       }
-  // }   
-   //stage('Push Docker Image'){   
-     //  steps{
-       //    sh '''
-         //    docker tag springbootcucumberimage:latest dacedos/springbootcucumberimage:latest
-           //  docker push dacedos/springbootcucumberimage:latest
-             //docker rmi springbootcucumberimage:latest
-//           '''
-  //     }
- //  }   
-//  }
-//}
