@@ -4,9 +4,7 @@ pipeline {
     stages {
        stage('checkout git'){   
        		steps{
-       		withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'dacedos')]) {
-                	git poll: true, url: "git@github.com:dacedos/springbootCucumberTest.git" 
-                }
+                	git poll: true, url: "git@github.com:dacedos/springbootCucumberTest.git" , credentialsId: "dacedos"
        		}
    		}
         stage('Build') {
